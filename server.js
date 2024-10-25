@@ -3,8 +3,12 @@ const { createServer } = require("http");
 const { Server } = require("socket.io");
 
 const httpServer = createServer();
+
 const io = new Server(httpServer, {
-  cors: "http://localhost:5174/",
+  cors: {
+    origin: process.env.CORS_ORIGIN || "http://localhost:5174", // Fallback for local development
+    methods: ["GET", "POST"],
+  },
 });
 
 //allUsers object
@@ -86,4 +90,7 @@ io.on("connection", (socket) => {
 //publisher -> action
 //listener -> react
 
-httpServer.listen(3000);
+const PORT = process.env.PORT || 3000;
+httpServer.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
