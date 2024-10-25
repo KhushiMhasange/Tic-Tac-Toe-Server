@@ -7,8 +7,8 @@ WORKDIR /app
 # Copy your server.js file into the working directory
 COPY server.js .
 
-# Install socket.io as a direct dependency
-RUN npm install socket.io
+# Install dependencies (express and socket.io)
+RUN npm install express socket.io
 
 # Expose the port that your server will run on
 EXPOSE 3000
